@@ -2,13 +2,32 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+## Unit Testing
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Unit tests are written to check for correctness and behabiours of small and isolated units or components.
 
-## Customize configuration
+What should we test in our components
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Visual correctness:
+
+  - props., slots, styles/ classes
+
+- Behavioural logic:
+
+  - renders update or emitted events in reponse to user inputs
+
+- props
+- events
+- slots
+- styles
+- classes
+- lifecycle hooks and more...
+
+- initial state
+- network requests
+- ...
+
+Learn more about [unit testing](https://vuejs.org/guide/scaling-up/testing.html#unit-testing) fro Vuejs' documentations
 
 ## Project Setup
 

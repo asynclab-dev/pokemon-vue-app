@@ -1,6 +1,16 @@
 <script setup>
+import { ref } from 'vue'
 import SearchIcon from './icons/SearchIcon.vue'
-import Button from './Button.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const searchInput = ref('')
+
+function handleSearch() {
+  if (searchInput.value.length > 0) return
+  router.push(`/pokemon/${searchInput.value.toLowerCase()}`)
+}
 </script>
 
 <template>
@@ -11,25 +21,17 @@ import Button from './Button.vue'
       <SearchIcon />
       <input
         type="text"
-        placeholder="Search anything"
+        placeholder="Type pokemon name"
         class="h-full bg-transparent outline-none px-4 min-w-[300px]"
+        v-model="searchInput"
       />
       <button
+        data-test="search-button"
         class="px-3 bg-neutral-950 text-white font-normal h-full rounded-full border border-neutral-950 hover:bg-white hover:text-black"
+        @click="handleSearch"
       >
         Search
       </button>
     </section>
-    <div class="px-2 flex justify-between gap-2">
-      <Button>Pokemon</Button>
-      <Button>Berries</Button>
-      <Button>Contests</Button>
-      <Button>Encounter</Button>
-      <Button>Evolution</Button>
-      <Button>Games</Button>
-      <Button>Items</Button>
-      <Button>Moves</Button>
-      <Button>Machines</Button>
-    </div>
   </section>
 </template>
