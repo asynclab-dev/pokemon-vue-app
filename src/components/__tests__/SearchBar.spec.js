@@ -49,21 +49,29 @@ describe('handleSearch function', () => {
     const pushSpy = vi.spyOn(router, 'push')
 
     // makes sure component has finished updating.
-    await wrapper.find('[data-test="search-button"]').trigger('click')
     await wrapper.find('input').setValue('')
+
+    await wrapper.find('[data-test="search-button"]').trigger('click')
+    expect(handleSearchSpy).not.toHaveBeenCalledOnce()
+
+    await wrapper.find('input').setValue('eevee')
+    await wrapper.find('[data-test="search-button"]').trigger('click')
 
     expect(handleSearchSpy).toHaveBeenCalledOnce()
   })
 
-  it('converts search field value to lowercase before fetching data', () => {})
+  it('only change route when searchInput is empty', async () => {
+    const wrapper = mount(SearchBar, { global: { plugins: [router] } })
+    const routerSpy = vi.spyOn(router, 'push')
 
-  it('does not navigate when searchInput is empty', async () => {
-    // const wrapper = mount(SearchBar, { global: { plugins: [router] } })
-    // await wrapper.get('input').setValue('')
-    // const routerSpy = vi.spyOn(router, 'push')
-    // await wrapper.find('[data-test="search-button"]').trigger('click')
-    // expect(routerSpy).toHaveBeenCalled()
+    // Set a non-empty value to the input field
+    await wrapper.find('input').setValue('')
+
+    // Click the search button
+    await wrapper.find('[data-test="search-button"]').trigger('click')
+
     // Ensure the router.push is not called
+    expect(routerSpy).not.toHaveBeenCalled()
   })
 
   it('navigates to the correct URL on search', async () => {
@@ -72,16 +80,15 @@ describe('handleSearch function', () => {
     await wrapper.get('input').setValue('charizad')
     await wrapper.find('[data-test="search-button"]').trigger('click')
     const routerSpy = vi.spyOn(router, 'push')
+    const handleSearchSpy = vi.spyOn(wrapper.vm, 'handleSearch')
 
-    // expect(wrapper.vm.handleSearch).toHaveBeenCalledOnce()
-    // expect(routerSpy).toHaveBeenCalledWith(`/pokemon/`)
+    // expect(handleSearchSpy).toHaveBeenCalledOnce()
+    expect(routerSpy).toHaveBeenCalledWith(`/charizad`)
 
-    // await nextTick()
+    await wrapper.vm.$nextTick()
 
     // Assert that the navigation was successful and the route is correct
-    // expect(wrapper.vm.$route.name).toBe('pokemon')
-    // expect(wrapper.vm.$route.params.name).toBe('pikachu')
+    // expect(wrapper.vm.$route.fullPath).toBe('pokemon')
+    expect(wrapper.vm.$route.params.name).toBe('pikachu')
   })
 })
-
-// const nextTick = () => new Promise((resolve) => setTimeout(resolve, 0))

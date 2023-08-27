@@ -8,8 +8,9 @@ const router = useRouter()
 const searchInput = ref('')
 
 function handleSearch() {
-  if (searchInput.value.length > 0) return
-  router.push(`/pokemon/${searchInput.value.toLowerCase()}`)
+  // if (searchInput.value.length > 0) return
+  // router.push(`/pokemon/${searchInput.value.toLowerCase()}`)
+  console.log('handleSearching.....')
 }
 </script>
 
